@@ -165,3 +165,34 @@ Embora a aprovação inicial no sistema do MEC gere uma expectativa de conquista
 - **Peso do Risco:** A responsabilidade de conferir os documentos recai sobre a IES. Por medo de auditorias do MEC, as universidades tendem a adotar uma postura de "compliance defensivo", indeferindo processos com qualquer inconsistência, o que vitimiza o estudante que não possui suporte para contestar ou retificar sua situação em tempo hábil.
 
 Este fail point é o **gargalo de vidro** da jornada: ele é transparente, parece acessível, mas ao ser tocado pode quebrar o plano do estudante por detalhes técnicos que fogem ao seu controle direto.
+
+---
+
+## Rodada 9
+
+**[Claude]** Para fechar a estrutura do blueprint, preciso que você confirme explicitamente: o blueprint do FIES tem uma camada de **Processos de Suporte** separada do Backstage? Quais sistemas e infraestruturas você coloca nessa camada — e por que eles são diferentes das ações de backstage executadas por pessoas?
+
+**[Eli]** Sim, o blueprint do FIES possui uma camada de **Processos de Suporte** explicitamente separada do Backstage, e essa distinção é fundamental para a correta leitura do mapa.
+
+**Por que são camadas diferentes:**
+
+O Backstage agrupa as ações executadas por **pessoas** que trabalham nos bastidores — funcionários que o estudante não vê, mas que realizam atividades diretamente ligadas ao atendimento. No FIES, são exemplos de Backstage: os funcionários da CPSA que conferem documentos no SisFIES-Gestão, os gerentes bancários que inserem propostas de crédito no sistema, e os operadores do FNDE que processam aditamentos.
+
+Os **Processos de Suporte** são diferentes porque agrupam **sistemas, infraestruturas e organizações** que viabilizam o serviço sem qualquer contato direto com o atendimento — nem visível, nem invisível ao estudante. Eles existem em uma camada ainda mais profunda, de pura infraestrutura tecnológica, normativa e financeira.
+
+**O que entra na camada de Processos de Suporte do FIES:**
+
+- **Sistema FiesSeleção (MEC/FNDE):** motor de regras que processa inscrições, aplica cotas e calcula notas de corte
+- **Portal Gov.br:** infraestrutura de autenticação digital unificada
+- **Base INEP:** fornece notas do ENEM via integração sistêmica
+- **Base CadÚnico (MDS):** verifica elegibilidade para o FIES Social via CPF
+- **Receita Federal:** valida CPFs do grupo familiar
+- **SIFESWeb / SisFIES:** plataformas de integração entre IES, banco e FNDE
+- **FG-Fies (Fundo Garantidor):** processa garantias de crédito para estudantes sem fiador
+- **FNDE — repasse de CFT-E:** emite e custódia títulos financeiros repassados às mantenedoras
+- **CETIP / Tesouro Nacional:** custódia dos CFT-E em nome da Caixa
+- **TCU / CGU:** auditoria transversal de contratos e sistemas
+
+**A distinção prática para o blueprint:**
+
+Quando o SIFESWeb trava (fail point identificado no Acórdão TCU nº 2513/2022), o problema está nos **Processos de Suporte** — não no Backstage. O gerente bancário (Backstage) tenta inserir a proposta, mas o sistema (Suporte) não responde. Mapear os dois na mesma camada ocultaria essa relação de causa e efeito, que é exatamente o que o blueprint deve revelar.
